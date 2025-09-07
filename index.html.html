@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Graduation Seleb</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #0d1b2a, #1b263b, #415a77);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #fff;
+      overflow: hidden;
+    }
+    .moon {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-size: 4rem;
+      z-index: 0;
+      animation: glow 4s infinite ease-in-out, floatMoon 10s infinite ease-in-out;
+    }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px #fff, 0 0 20px #ffd700; }
+      50% { text-shadow: 0 0 20px #fff, 0 0 40px #ffd700; }
+    }
+    @keyframes floatMoon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      font-size: 1rem;
+      color: #fff;
+      text-shadow: 0 0 6px #fff, 0 0 12px #ffeb3b;
+      animation: twinkle 3s infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    .sunflower {
+      position: absolute;
+      bottom: -10px;
+      font-size: 3rem;
+      animation: sway 5s infinite ease-in-out, floaty 6s infinite ease-in-out;
+    }
+    .sunflower:nth-child(2) { left: 15%; animation-delay: 0s; }
+    .sunflower:nth-child(3) { left: 45%; animation-delay: 2s; }
+    .sunflower:nth-child(4) { left: 75%; animation-delay: 4s; }
+    @keyframes sway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      max-width: 600px;
+      text-align: center;
+      animation: fadeIn 2s ease;
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      font-size: 2rem;
+      color: #ffeb3b;
+    }
+    p {
+      margin-top: 1rem;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #f0f0f0;
+    }
+    #typedText {
+      min-height: 120px;
+      white-space: pre-line;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      background: #ffeb3b;
+      color: #333;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ffc107;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      padding: 2rem;
+      border-radius: 15px;
+      color: #fff;
+      z-index: 10;
+      max-width: 400px;
+      text-align: center;
+    }
+    .popup button {
+      margin-top: 1rem;
+      background: #ffeb3b;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="moon">🌙</div>
+  <div class="stars"></div>
+  <div class="sunflower">🌻</div>
+  <div class="sunflower">🌻</div>
+  <div class="sunflower">🌻</div>
+
+  <div class="card">
+    <h1>🎓 Happy Graduation, Seleb! 🎉</h1>
+    <p id="typedText"></p>
+    <button onclick="celebrate()">Celebrate 🎊</button>
+    <button onclick="showPopup()">💌 From me to you</button>
+  </div>
+
+  <div id="popup" class="popup">
+    <p>You’re not just graduating — you’re shining ✨. I hope your future is full of success, happiness, and endless opportunities. 🌻</p>
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <audio id="cheerSound" src="https://www.myinstants.com/media/sounds/kids-cheering.mp3"></audio>
+  <audio id="bgMusic" src="https://cdn.pixabay.com/audio/2022/03/15/audio_3cfbf56d7f.mp3" autoplay loop volume="0.3"></audio>
+
+  <script>
+    function celebrate() {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+      document.getElementById('cheerSound').play();
+    }
+
+    function showPopup() {
+      document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // typing effect
+    const text = `I know you can do it. I always believed you could reach this journey.\nBut I also know it wasn’t easy, right? That’s the thing — you’ve gone through so much to get here, and I just want to say you’re truly amazing.\nI’m so proud of you. Once again, congratulations on your graduation, and I hope you stay strong and everything flows smoothly in your next career steps. 🌟`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typedText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+      }
+    }
+    window.onload = typeWriter;
+
+    // generate stars ✨
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.textContent = '✦';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDuration = 2 + Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>
